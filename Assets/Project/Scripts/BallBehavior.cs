@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallBounce : MonoBehaviour
+public class BallBehavior : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    float ballSpeed = 11f;
+    float ballInitialSpeed = 11f;
     float maxBounceAngle = 90;
 
     //these values are modified either through the inspector or assigned by the game manager
 
+    public static Action<GameObject> OnBallTouchesBottom;
+
     #region Getters&Setters
-    public float BallSpeed { get { return ballSpeed; } set { ballSpeed = value; } }
+    public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
     public float MaxBounceAngle { set { MaxBounceAngle = value; }}
     #endregion
 
@@ -20,6 +23,7 @@ public class BallBounce : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
 
     /// <summary>
     /// Basically, if you hit the player figure, calculate the angle for the bounce like this:
@@ -45,12 +49,35 @@ public class BallBounce : MonoBehaviour
 
             Vector2 direction = new Vector2(x, y).normalized;
 
-            rb.velocity = direction * ballSpeed;
+            rb.velocity = direction * ballInitialSpeed;
         }
-        else // if the object hit is not the player figure, then simply reflect the bounce in the opposite direction
+        else if(collision.gameObject.CompareTag("walls"))// if the object hit is not the player figure, then simply reflect the bounce in the opposite direction
         {
             Vector2 reflection = Vector2.Reflect(rb.velocity, collision.contacts[0].normal);
-            rb.velocity = reflection.normalized * ballSpeed;
+            rb.velocity = reflection.normalized * ballInitialSpeed;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("ball catcher"))
+        {
+            ResetBall();
+            OnBallTouchesBottom?.Invoke(gameObject);
+        }
+    }
+
+    public void LaunchBall(Vector2 direction)
+    {
+        rb.velocity = direction * ballInitialSpeed;
+    }
+    public void LaunchBall()
+    {
+        rb.velocity = Vector2.up * ballInitialSpeed;
+    }
+
+    private void ResetBall()
+    {
+        this.gameObject.SetActive(false);
     }
 }
