@@ -12,9 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float ballsInitialSpeed;
     [SerializeField]
+    private float minBallBounceAngle;   
+    [SerializeField]
+    private float maxBallBounceAngle;
+    [SerializeField]
     private int maxAmountOfBalls; // maximum amount of balls on the screen at any given time 
     [SerializeField]
     GameObject ballPrefab;
+
 
     private void Awake()
     {
@@ -27,5 +32,8 @@ public class GameManager : MonoBehaviour
         ballLauncherReference.BallInitialSpeed = ballsInitialSpeed;
         ballLauncherReference.MaxAmountOfBalls = maxAmountOfBalls;
         ballLauncherReference.BallPrefab = ballPrefab;
+        ballLauncherReference.BallsMaxBounceAngle = maxBallBounceAngle;
+        ballLauncherReference.BallsMinBounceAngle = minBallBounceAngle;
     }
+
 }

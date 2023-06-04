@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     private float speed = 10;
     private bool isMovingLeft;
     private bool isMovingRight;
-
+    [SerializeField]
+    private float bounds;
 
 
     private void Update()
@@ -19,10 +20,16 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         if (isMovingLeft)
+        {
             transform.position -= new Vector3(speed * Time.deltaTime, 0);
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -bounds, bounds), transform.position.y, transform.position.z);
+        }
 
-        if(isMovingRight)
+        if (isMovingRight)
+        {
             transform.position += new Vector3(speed * Time.deltaTime, 0);
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -bounds, bounds), transform.position.y, transform.position.z);
+        }
     }
 
 

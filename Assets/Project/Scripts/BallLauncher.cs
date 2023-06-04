@@ -7,6 +7,8 @@ public class BallLauncher : MonoBehaviour
     //settings
     private float ballInitialSpeed;
     private int maxAmountOfBalls;
+    private float ballsMaxBounceAngle;
+    private float ballsMinBounceAngle;
     GameObject ballPrefab;
 
     [SerializeField] GameObject currentBall;
@@ -16,6 +18,8 @@ public class BallLauncher : MonoBehaviour
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; }}
     public int MaxAmountOfBalls { get { return maxAmountOfBalls; } set { maxAmountOfBalls = value; }}
     public GameObject BallPrefab { get { return ballPrefab; } set { ballPrefab = value; } }
+    public float BallsMaxBounceAngle { get { return ballsMaxBounceAngle; } set { ballsMaxBounceAngle = value; }}
+    public float BallsMinBounceAngle { get { return ballsMinBounceAngle; } set { ballsMinBounceAngle = value; }}
     #endregion
 
     void Start()
@@ -26,7 +30,11 @@ public class BallLauncher : MonoBehaviour
 
         for(int i=0; i<maxAmountOfBalls; i++)
         {
-            ballQueue.Enqueue(Instantiate(ballPrefab, transform));
+            var tempBall = Instantiate(ballPrefab, transform);
+            var bh = tempBall.GetComponent<BallBehavior>();
+            bh.MaxBounceAngle = ballsMaxBounceAngle;
+            bh.MinBounceAngle = ballsMinBounceAngle;
+            ballQueue.Enqueue(tempBall);
         }
 
         StartCoroutine(LaunchBallAfterTime());
