@@ -6,6 +6,8 @@ using UnityEngine;
 public class BallBehavior : MonoBehaviour
 {
     Rigidbody2D rb;
+    [SerializeField]
+    AudioSource audioSource;
 
     float ballInitialSpeed = 11f;
     float maxBounceAngle = 90;
@@ -14,12 +16,13 @@ public class BallBehavior : MonoBehaviour
     //these values are modified either through the inspector or assigned by the game manager
 
     public static Action<GameObject> OnBallTouchesBottom;
-    public static Action OnBallCollidesWithObject; // use this for sounds and physic handling
+    public static Action<AudioSource> OnBallCollidesWithObjectAUDIO; // use this for sounds and physic handling
 
     #region Getters&Setters
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
     public float MaxBounceAngle { set { maxBounceAngle = value; }}
     public float MinBounceAngle { set { minBounceAngle = value; }}
+    public AudioSource AudioSource { get { return audioSource; } set { audioSource = value; } }
     #endregion
 
     private void Awake()
@@ -38,7 +41,7 @@ public class BallBehavior : MonoBehaviour
     {
         HandleCollision(collision);
 
-        OnBallCollidesWithObject?.Invoke();
+        OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

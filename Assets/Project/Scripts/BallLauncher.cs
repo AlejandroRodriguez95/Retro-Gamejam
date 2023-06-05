@@ -9,10 +9,13 @@ public class BallLauncher : MonoBehaviour
     private int maxAmountOfBalls;
     private float ballsMaxBounceAngle;
     private float ballsMinBounceAngle;
+
+    private AudioClip ballBounceClip;
+
     GameObject ballPrefab;
 
-    [SerializeField] GameObject currentBall;
-    [SerializeField] Queue<GameObject> ballQueue;
+    GameObject currentBall;
+    Queue<GameObject> ballQueue;
 
     #region Getters&Setters
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; }}
@@ -20,6 +23,7 @@ public class BallLauncher : MonoBehaviour
     public GameObject BallPrefab { get { return ballPrefab; } set { ballPrefab = value; } }
     public float BallsMaxBounceAngle { get { return ballsMaxBounceAngle; } set { ballsMaxBounceAngle = value; }}
     public float BallsMinBounceAngle { get { return ballsMinBounceAngle; } set { ballsMinBounceAngle = value; }}
+    public AudioClip BallBounceClip { get { return ballBounceClip; } set { ballBounceClip = value; } }
     #endregion
 
     void Start()
@@ -32,6 +36,9 @@ public class BallLauncher : MonoBehaviour
         {
             var tempBall = Instantiate(ballPrefab, transform);
             var bh = tempBall.GetComponent<BallBehavior>();
+
+            bh.AudioSource.clip = ballBounceClip;
+
             bh.MaxBounceAngle = ballsMaxBounceAngle;
             bh.MinBounceAngle = ballsMinBounceAngle;
             ballQueue.Enqueue(tempBall);

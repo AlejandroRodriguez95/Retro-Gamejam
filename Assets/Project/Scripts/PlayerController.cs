@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float bounds;
 
-
+    #region Getters&Setters
+    public float Bounds { get { return bounds; } set { bounds = value; } }
+    #endregion
     private void Update()
     {
         MovePlayer();
