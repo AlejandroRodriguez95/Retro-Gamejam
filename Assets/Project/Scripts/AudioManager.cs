@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 public class AudioManager : MonoBehaviour
 {
     [Title("AUDIO CLIPS")]
-    [SerializeField] AudioClip ballBounceClip;
+    [SerializeField] AudioClip[] ballBounceClips;
     [SerializeField] [Tooltip("This sound will play when the ball goes off-screen, for now (we will change it later)")] AudioClip destructionClip;
 
     [Space]
@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     {
         BallBehavior.OnBallCollidesWithObjectAUDIO += PlayClip;
         BallDestroyer.OnBallIsDestroyedAUDIO += PlayClip;
-        ballLauncher.BallBounceClip = ballBounceClip;
+        ballLauncher.BallBounceClip = this.getBallBounceClip();
 
         ballDestroyer.AudioSource.clip = destructionClip;
     }
@@ -23,8 +23,15 @@ public class AudioManager : MonoBehaviour
     private void PlayClip(AudioSource audioSource)
     {
         if(audioSource.clip != null)
-            audioSource.Play();
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+            audioSource.clip = this.getBallBounceClip();
+        }
     }
 
+    private AudioClip getBallBounceClip()
+    {
+        return this.ballBounceClips[Random.Range(0, this.ballBounceClips.Length)];
+    }
 }
 
