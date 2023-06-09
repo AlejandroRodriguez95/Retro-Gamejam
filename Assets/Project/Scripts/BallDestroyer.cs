@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BallDestroyer : MonoBehaviour
 {
+    [SerializeField]
     AudioSource audioSource;
 
     #region Getters&Setters
@@ -13,10 +14,6 @@ public class BallDestroyer : MonoBehaviour
     public static Action<AudioSource> OnBallIsDestroyedAUDIO;
     #endregion
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
