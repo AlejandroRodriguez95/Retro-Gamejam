@@ -16,12 +16,14 @@ public class BallBehavior : MonoBehaviour
     //these values are modified either through the inspector or assigned by the game manager
 
     public static Action<GameObject> OnBallTouchesBottom;
+    public static Action<Collision2D, float, float, float> OnBallBouncesOnPlayer;
+    public static Action<Collision2D, float> OnBallBouncesNormally;
     public static Action<AudioSource> OnBallCollidesWithObjectAUDIO; // use this for sounds and physic handling
 
     #region Getters&Setters
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
-    public float MaxBounceAngle { set { maxBounceAngle = value; }}
-    public float MinBounceAngle { set { minBounceAngle = value; }}
+    public float MaxBounceAngle { set { maxBounceAngle = value; } }
+    public float MinBounceAngle { set { minBounceAngle = value; } }
     public AudioSource AudioSource { get { return audioSource; } set { audioSource = value; } }
     #endregion
 
@@ -39,14 +41,27 @@ public class BallBehavior : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        HandleCollision(collision);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            OnBallBouncesOnPlayer?.Invoke(collision, ballInitialSpeed, minBounceAngle, maxBounceAngle);
+            OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
+        }
 
-        OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
+        if (collision.gameObject.CompareTag("Normal bounce"))
+        {
+            OnBallBouncesNormally?.Invoke(collision, ballInitialSpeed);
+            OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
+        }
+
+        if (collision.gameObject.CompareTag("Ball goes through"))
+            Debug.Log("Ball went through");
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("ball catcher"))
+        if (collision.gameObject.CompareTag("ball catcher"))
         {
             ResetBall();
             OnBallTouchesBottom?.Invoke(gameObject);
@@ -65,36 +80,5 @@ public class BallBehavior : MonoBehaviour
     private void ResetBall()
     {
         this.gameObject.SetActive(false);
-    }
-
-    private void HandleCollision(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            float pointOfImpact = collision.contacts[0].point.x;
-            float playerCenter = collision.gameObject.transform.position.x;
-            float distanceFromCenter = pointOfImpact - playerCenter;
-            float angle = maxBounceAngle * (1 - Mathf.Abs(distanceFromCenter));
-
-            if (distanceFromCenter > 0)
-                angle = Mathf.Clamp(angle, minBounceAngle, maxBounceAngle);
-            else
-                angle = Mathf.Clamp(180 - angle, 180 - maxBounceAngle, 180 - minBounceAngle);
-
-            float angleInRadians = angle * Mathf.Deg2Rad;
-
-            //x and y component from the direction vector
-            float x = Mathf.Cos(angleInRadians);
-            float y = Mathf.Abs(Mathf.Sin(angleInRadians));
-
-            Vector2 direction = new Vector2(x, y).normalized;
-
-            rb.velocity = direction * ballInitialSpeed;
-        }
-        else if (collision.gameObject.CompareTag("walls"))// if the object hit is not the player figure, then simply reflect the bounce in the opposite direction
-        {
-            Vector2 reflection = Vector2.Reflect(rb.velocity, collision.contacts[0].normal);
-            rb.velocity = reflection.normalized * ballInitialSpeed;
-        }
     }
 }
