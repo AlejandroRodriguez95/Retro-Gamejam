@@ -4,8 +4,8 @@ using Sirenix.OdinInspector;
 public class AudioManager : MonoBehaviour
 {
     [Title("AUDIO CLIPS")]
-    [SerializeField] AudioClip[] ballBounceClips;
     [SerializeField] [Tooltip("This sound will play when the ball goes off-screen, for now (we will change it later)")] AudioClip destructionClip;
+    [SerializeField] AudioClip[] ballBounceClips;
 
     [Space]
     [Title("Script references")]
@@ -13,25 +13,23 @@ public class AudioManager : MonoBehaviour
     [SerializeField] BallDestroyer ballDestroyer;
     private void Awake()
     {
-        BallBehavior.OnBallCollidesWithObjectAUDIO += PlayClip;
-        BallDestroyer.OnBallIsDestroyedAUDIO += PlayClip;
-        ballLauncher.BallBounceClip = this.getBallBounceClip();
-
-        ballDestroyer.AudioSource.clip = destructionClip;
+        BallBehavior.OnBallCollidesWithObjectAUDIO += PlayRandomBounceClip;
+        BallDestroyer.OnBallIsDestroyedAUDIO += PlayDestructionClip;
     }
 
-    private void PlayClip(AudioSource audioSource)
+    private void PlayDestructionClip(AudioSource audioSource)
     {
-        if(audioSource.clip != null)
-        {
-            audioSource.PlayOneShot(audioSource.clip);
-            audioSource.clip = this.getBallBounceClip();
-        }
+        if(audioSource.clip == null)
+            audioSource.clip = destructionClip;
+
+            audioSource.PlayOneShot(destructionClip);
     }
 
-    private AudioClip getBallBounceClip()
+    private void PlayRandomBounceClip(AudioSource audioSource)
     {
-        return this.ballBounceClips[Random.Range(0, this.ballBounceClips.Length)];
+        audioSource.clip = ballBounceClips[Random.Range(0, ballBounceClips.Length)];
+        audioSource.PlayOneShot(audioSource.clip);
     }
+
 }
 

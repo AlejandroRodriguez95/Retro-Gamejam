@@ -169,9 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dededdbaa11cd594db582f38d477cc8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 1306905dfbe5c554e810e290a27f947d, type: 2}
   startPoint: {fileID: 1445470780}
   endPoint: {fileID: 719023961}
-  projectile: {fileID: 2319795558776942437, guid: 1c9b4fdc84d58c2408c6cca98f2c5bb4, type: 3}
 --- !u!1 &125942790
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eeb419758cc132438358141aa749049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 8d48ccb7f3fc4ca4a997aef5e5d935ab, type: 2}
 --- !u!4 &392511172
 Transform:
   m_ObjectHideFlags: 0
@@ -662,11 +663,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81577ce93d308d14986683c4ee5d010b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destructionClip: {fileID: 8300000, guid: 12f160a3f78d9c94199a74585a641c6b, type: 3}
   ballBounceClips:
   - {fileID: 8300000, guid: 5cb2b603a6c957f40af0c5cf15bb06fb, type: 3}
   - {fileID: 8300000, guid: 7cce3d131d72b5b4e8eeee3297401d8c, type: 3}
   - {fileID: 8300000, guid: 5d99059c57c23174bb2a9efef2fdc75f, type: 3}
-  destructionClip: {fileID: 8300000, guid: 12f160a3f78d9c94199a74585a641c6b, type: 3}
   ballLauncher: {fileID: 392511171}
   ballDestroyer: {fileID: 1085918934}
 --- !u!4 &697328987
@@ -906,6 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0245110ba1bf5a44b377c5d3e024b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 1085918935}
 --- !u!82 &1085918935
 AudioSource:
   m_ObjectHideFlags: 0
@@ -918,7 +920,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.247
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1173,11 +1175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ecfb053333a4d4d8ac713499c93105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballLauncherReference: {fileID: 392511171}
-  ballsInitialSpeed: 11
-  minBallBounceAngle: 25
-  maxBallBounceAngle: 90
-  maxAmountOfBalls: 100
   playerController: {fileID: 125942794}
   bounds: 7.8
   ballPrefab: {fileID: 6117742114775892008, guid: c63547f6fa47d1a4a80a0cfe1cda4212, type: 3}
@@ -1479,6 +1476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1474364700}
   - component: {fileID: 1474364701}
+  - component: {fileID: 1474364702}
   m_Layer: 0
   m_Name: Behaviors
   m_TagString: Untagged
@@ -1511,6 +1509,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 724c002825697224a969b17db038ebb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1474364702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474364699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a82d2ceeeb472a4587ab0e871a301e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1543730686
@@ -1670,6 +1680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dededdbaa11cd594db582f38d477cc8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 1306905dfbe5c554e810e290a27f947d, type: 2}
   startPoint: {fileID: 1236735817}
   endPoint: {fileID: 954670756}
-  projectile: {fileID: 2319795558776942437, guid: 1c9b4fdc84d58c2408c6cca98f2c5bb4, type: 3}

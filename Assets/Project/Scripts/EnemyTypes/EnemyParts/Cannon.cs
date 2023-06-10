@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using Sirenix.OdinInspector;
+using System;
 
 public class Cannon : MonoBehaviour
 {
+    [SerializeField]
+    SO_CannonGlobalSettings settings;
+
     [SerializeField]
     Transform startPoint;
 
@@ -14,22 +18,32 @@ public class Cannon : MonoBehaviour
 
     Vector2 direction;
 
+    public static Action<Queue<GameObject>, Vector2, float> OnLaunchProjectile;
+
     //temp
-    [SerializeField]
-    GameObject projectile;
+    [ShowInInspector]
+    Queue<GameObject> projectileQueue;
+
 
     private void Start()
     {
+        projectileQueue = new Queue<GameObject>(settings.MaxQueueCapacity);
+
         direction = (endPoint.position - startPoint.position).normalized;
+
+        for(int i = 0; i < settings.MaxQueueCapacity; i++)
+        {
+                var tempProjectile = Instantiate(settings.EnemyProjectilePrefab, transform);
+                projectileQueue.Enqueue(tempProjectile);
+        }
     }
 
 
 
     public void Shoot()
     {
-        // this is temporary and will be modified so that it uses a queue and object pooling like the ball launcher
-        var go = Instantiate(projectile, endPoint.position, Quaternion.identity, this.transform);
-        go.GetComponent<Rigidbody2D>().velocity = direction;
+        if(projectileQueue.Count > 0)
+            OnLaunchProjectile?.Invoke(projectileQueue, direction, settings.ProjectileInitialSpeed);
     }
 
     private void OnDrawGizmosSelected()

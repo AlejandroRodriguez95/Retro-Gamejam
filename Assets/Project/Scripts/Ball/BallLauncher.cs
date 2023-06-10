@@ -1,59 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Sirenix.OdinInspector;
 
 public class BallLauncher : MonoBehaviour
 {
-    //settings
-    private float ballInitialSpeed;
-    private int maxAmountOfBalls;
-    private float ballsMaxBounceAngle;
-    private float ballsMinBounceAngle;
+    [SerializeField]
+    SO_LauncherSettings settings;
 
-    private AudioClip ballBounceClip;
+    public static Action<Queue<GameObject>, Vector2, float> OnLaunchBall;
 
-    GameObject ballPrefab;
-
-    GameObject currentBall;
     Queue<GameObject> ballQueue;
-
-    #region Getters&Setters
-    public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; }}
-    public int MaxAmountOfBalls { get { return maxAmountOfBalls; } set { maxAmountOfBalls = value; }}
-    public GameObject BallPrefab { get { return ballPrefab; } set { ballPrefab = value; } }
-    public float BallsMaxBounceAngle { get { return ballsMaxBounceAngle; } set { ballsMaxBounceAngle = value; }}
-    public float BallsMinBounceAngle { get { return ballsMinBounceAngle; } set { ballsMinBounceAngle = value; }}
-    public AudioClip BallBounceClip { get { return ballBounceClip; } set { ballBounceClip = value; } }
-    #endregion
 
     void Start()
     {
         BallBehavior.OnBallTouchesBottom += ReQueueBall;
+        
+        ballQueue = new Queue<GameObject>(settings.MaxAmountOfBalls);
 
-        ballQueue = new Queue<GameObject>(maxAmountOfBalls);
-
-        for(int i=0; i<maxAmountOfBalls; i++)
+        for(int i=0; i<settings.MaxAmountOfBalls; i++)
         {
-            var tempBall = Instantiate(ballPrefab, transform);
+            var tempBall = Instantiate(settings.BallPrefab, transform);
             var bh = tempBall.GetComponent<BallBehavior>();
 
-            bh.AudioSource.clip = ballBounceClip;
-
-            bh.MaxBounceAngle = ballsMaxBounceAngle;
-            bh.MinBounceAngle = ballsMinBounceAngle;
+            bh.BallInitialSpeed = settings.BallInitialSpeed;
+            bh.MaxBounceAngle = settings.BallsMaxBounceAngle;
+            bh.MinBounceAngle = settings.BallsMinBounceAngle;
             ballQueue.Enqueue(tempBall);
         }
 
         StartCoroutine(LaunchBallAfterTime());
     }
 
-
-    void LaunchBall()
-    {
-        currentBall = ballQueue.Dequeue();
-        currentBall.SetActive(true);
-        currentBall.GetComponent<BallBehavior>().LaunchBall();
-    }
 
     void ReQueueBall(GameObject ball)
     {
@@ -66,6 +45,6 @@ public class BallLauncher : MonoBehaviour
     IEnumerator LaunchBallAfterTime()
     {
         yield return new WaitForSeconds(3);
-        LaunchBall();
+        OnLaunchBall?.Invoke(ballQueue, Vector2.up, settings.BallInitialSpeed);
     }
 }

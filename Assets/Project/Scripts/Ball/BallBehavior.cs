@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
 {
-    Rigidbody2D rb;
     [SerializeField]
     AudioSource audioSource;
 
-    float ballInitialSpeed = 11f;
-    float maxBounceAngle = 90;
-    float minBounceAngle = 25;
+    float ballInitialSpeed;
+    float maxBounceAngle;
+    float minBounceAngle;
 
     //these values are modified either through the inspector or assigned by the game manager
 
@@ -24,13 +23,8 @@ public class BallBehavior : MonoBehaviour
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
     public float MaxBounceAngle { set { maxBounceAngle = value; } }
     public float MinBounceAngle { set { minBounceAngle = value; } }
-    public AudioSource AudioSource { get { return audioSource; } set { audioSource = value; } }
     #endregion
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
 
     /// <summary>
@@ -66,15 +60,6 @@ public class BallBehavior : MonoBehaviour
             ResetBall();
             OnBallTouchesBottom?.Invoke(gameObject);
         }
-    }
-
-    public void LaunchBall(Vector2 direction)
-    {
-        rb.velocity = direction * ballInitialSpeed;
-    }
-    public void LaunchBall()
-    {
-        rb.velocity = Vector2.up * ballInitialSpeed;
     }
 
     private void ResetBall()

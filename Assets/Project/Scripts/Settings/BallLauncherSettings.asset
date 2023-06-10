@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508cd1fce0d90df48ba5c3f051ba6141, type: 3}
+  m_Name: BallLauncherSettings
+  m_EditorClassIdentifier: 
+  BallPrefab: {fileID: 6117742114775892008, guid: c63547f6fa47d1a4a80a0cfe1cda4212, type: 3}
+  BallInitialSpeed: 11
+  MaxAmountOfBalls: 100
+  BallsMaxBounceAngle: 90
+  BallsMinBounceAngle: 15

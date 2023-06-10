@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class BallDestroyer : MonoBehaviour
 {
+    [SerializeField]
     AudioSource audioSource;
 
-    #region Getters&Setters
-    public AudioSource AudioSource { get { return audioSource; }}
-
     public static Action<AudioSource> OnBallIsDestroyedAUDIO;
-    #endregion
 
     private void Awake()
     {
