@@ -19,10 +19,10 @@ public class BounceBehavior : MonoBehaviour
     {
         float pointOfImpact = collision.contacts[0].point.x;
         float playerCenter = collision.gameObject.transform.position.x;
-        float distanceFromCenter = pointOfImpact - playerCenter;
-        float angle = maxBounceAngle * (1 - Mathf.Abs(distanceFromCenter));
+        float displacementFromCenter = pointOfImpact - playerCenter;
+        float angle = maxBounceAngle * (1 - Mathf.Abs(displacementFromCenter));
 
-        if (distanceFromCenter > 0)
+        if (displacementFromCenter > 0)
             angle = Mathf.Clamp(angle, minBounceAngle, maxBounceAngle);
         else
             angle = Mathf.Clamp(180 - angle, 180 - maxBounceAngle, 180 - minBounceAngle);

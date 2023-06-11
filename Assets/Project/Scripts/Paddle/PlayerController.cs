@@ -5,13 +5,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 10;
     private bool isMovingLeft;
     private bool isMovingRight;
+    [SerializeField]
+    private float speed = 10;
     [SerializeField]
     private float bounds;
 
     #region Getters&Setters
+
+    public float Speed { get { return speed; } set { speed = value; } }
     public float Bounds { get { return bounds; } set { bounds = value; } }
     #endregion
     private void Update()
