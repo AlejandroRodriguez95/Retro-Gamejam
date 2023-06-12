@@ -15,5 +15,4 @@ MonoBehaviour:
   BallPrefab: {fileID: 6117742114775892008, guid: c63547f6fa47d1a4a80a0cfe1cda4212, type: 3}
   BallInitialSpeed: 11
   MaxAmountOfBalls: 100
-  BallsMaxBounceAngle: 90
   BallsMinBounceAngle: 15
