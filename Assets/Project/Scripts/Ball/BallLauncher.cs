@@ -25,7 +25,6 @@ public class BallLauncher : MonoBehaviour
             var bh = tempBall.GetComponent<BallBehavior>();
 
             bh.BallInitialSpeed = settings.BallInitialSpeed;
-            bh.MaxBounceAngle = settings.BallsMaxBounceAngle;
             bh.MinBounceAngle = settings.BallsMinBounceAngle;
             ballQueue.Enqueue(tempBall);
         }

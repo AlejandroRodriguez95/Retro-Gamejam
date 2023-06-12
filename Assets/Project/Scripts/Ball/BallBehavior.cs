@@ -9,19 +9,17 @@ public class BallBehavior : MonoBehaviour
     AudioSource audioSource;
 
     float ballInitialSpeed;
-    float maxBounceAngle;
     float minBounceAngle;
 
     //these values are modified either through the inspector or assigned by the game manager
 
     public static Action<GameObject> OnBallTouchesBottom;
-    public static Action<Collision2D, float, float, float> OnBallBouncesOnPlayer;
+    public static Action<Collision2D, float, float> OnBallBouncesOnPlayer;
     public static Action<Collision2D, float> OnBallBouncesNormally;
     public static Action<AudioSource> OnBallCollidesWithObjectAUDIO; // use this for sounds and physic handling
 
     #region Getters&Setters
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
-    public float MaxBounceAngle { set { maxBounceAngle = value; } }
     public float MinBounceAngle { set { minBounceAngle = value; } }
     #endregion
 
@@ -37,7 +35,7 @@ public class BallBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            OnBallBouncesOnPlayer?.Invoke(collision, ballInitialSpeed, minBounceAngle, maxBounceAngle);
+            OnBallBouncesOnPlayer?.Invoke(collision, ballInitialSpeed, minBounceAngle);
             OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
         }
 

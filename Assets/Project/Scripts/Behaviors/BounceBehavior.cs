@@ -15,23 +15,18 @@ public class BounceBehavior : MonoBehaviour
         collision.otherRigidbody.velocity = reflection.normalized * ballInitialSpeed;
     }
 
-    private void BounceOnPlayer(Collision2D collision, float ballInitialSpeed, float minBounceAngle, float maxBounceAngle)
+    private void BounceOnPlayer(Collision2D collision, float ballInitialSpeed, float minBounceAngle)
     {
         float pointOfImpact = collision.contacts[0].point.x;
         float playerCenter = collision.gameObject.transform.position.x;
         float displacementFromCenter = pointOfImpact - playerCenter;
-        float angle = maxBounceAngle * (1 - Mathf.Abs(displacementFromCenter));
 
-        if (displacementFromCenter > 0)
-            angle = Mathf.Clamp(angle, minBounceAngle, maxBounceAngle);
-        else
-            angle = Mathf.Clamp(180 - angle, 180 - maxBounceAngle, 180 - minBounceAngle);
+        float playerExtent = collision.gameObject.GetComponent<PlayerController>().Bounds / 2;
+        float tempHeight = playerExtent * Mathf.Tan(minBounceAngle*Mathf.PI/360) ;
+        float reflectionAngle = Mathf.Atan2(displacementFromCenter, tempHeight);
 
-        float angleInRadians = angle * Mathf.Deg2Rad;
-
-        //x and y component from the direction vector
-        float x = Mathf.Cos(angleInRadians);
-        float y = Mathf.Abs(Mathf.Sin(angleInRadians));
+        float x = Mathf.Sin(reflectionAngle);
+        float y = Mathf.Cos(reflectionAngle);
 
         Vector2 direction = new Vector2(x, y).normalized;
 
