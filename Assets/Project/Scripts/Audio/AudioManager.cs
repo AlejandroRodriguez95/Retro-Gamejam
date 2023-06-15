@@ -13,8 +13,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] BallDestroyer ballDestroyer;
     private void Awake()
     {
-        BallBehavior.OnBallCollidesWithObjectAUDIO += PlayRandomBounceClip;
+        Ball.OnBallCollidesWithObjectAUDIO += PlayRandomBounceClip;
         BallDestroyer.OnBallIsDestroyedAUDIO += PlayDestructionClip;
+
+        EnemyProjectile.OnProjectileCollidesWithObjectAUDIO += PlayRandomBounceClip;
     }
 
     private void PlayDestructionClip(AudioSource audioSource)

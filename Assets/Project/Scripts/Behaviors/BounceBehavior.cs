@@ -6,8 +6,11 @@ public class BounceBehavior : MonoBehaviour
 {
     void Start()
     {
-        BallBehavior.OnBallBouncesNormally += NormalBounce;
-        BallBehavior.OnBallBouncesOnPlayer += BounceOnPlayer;
+        Ball.OnBallBouncesNormally += NormalBounce;
+        Ball.OnBallBouncesOnPlayer += BounceOnPlayer;
+
+        EnemyProjectile.OnProjectileBouncesNormally += NormalBounce;
+        EnemyProjectile.OnProjectileBouncesOnPlayer += BounceOnPlayer;
     }
     private void NormalBounce(Collision2D collision, float ballInitialSpeed)
     {

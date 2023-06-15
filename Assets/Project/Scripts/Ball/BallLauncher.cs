@@ -15,14 +15,14 @@ public class BallLauncher : MonoBehaviour
 
     void Start()
     {
-        BallBehavior.OnBallTouchesBottom += ReQueueBall;
+        Ball.OnBallTouchesBottom += ReQueueBall;
         
         ballQueue = new Queue<GameObject>(settings.MaxAmountOfBalls);
 
         for(int i=0; i<settings.MaxAmountOfBalls; i++)
         {
             var tempBall = Instantiate(settings.BallPrefab, transform);
-            var bh = tempBall.GetComponent<BallBehavior>();
+            var bh = tempBall.GetComponent<Ball>();
 
             bh.BallInitialSpeed = settings.BallInitialSpeed;
             bh.MaxBounceAngle = settings.BallsMaxBounceAngle;

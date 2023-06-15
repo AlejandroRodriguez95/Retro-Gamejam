@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallBehavior : MonoBehaviour
+public class Ball : MonoBehaviour
 {
     [SerializeField]
     AudioSource audioSource;
