@@ -17,6 +17,10 @@ public abstract class Enemy : MonoBehaviour
     public virtual void TakeDamage()
     {
         currentHealth--;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
     public virtual void ApplySpecialEffects()
     {

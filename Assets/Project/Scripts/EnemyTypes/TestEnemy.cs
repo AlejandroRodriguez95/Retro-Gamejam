@@ -33,6 +33,14 @@ public class TestEnemy : Enemy
         throw new System.NotImplementedException();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("reflected projectile") || collision.gameObject.CompareTag("ball"))
+        {
+            TakeDamage();
+        }
+    }
+
     public override IEnumerator AttackingPattern()
     {
         while (true)

@@ -5,15 +5,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 10;
+    [SerializeField]
+    SO_PlayerSettings playerSettings;
+
+    float speed;
+    float bounds;
+
     private bool isMovingLeft;
     private bool isMovingRight;
-    [SerializeField]
-    private float bounds;
 
-    #region Getters&Setters
-    public float Bounds { get { return bounds; } set { bounds = value; } }
-    #endregion
+    private void Awake()
+    {
+        speed = playerSettings.MoveSpeed;
+        bounds = playerSettings.Bounds;
+    }
+
     private void Update()
     {
         MovePlayer();
@@ -52,4 +58,16 @@ public class PlayerController : MonoBehaviour
         if (context.canceled)
             isMovingRight = false;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("power up"))
+        {
+            Destroy(collision.gameObject);
+            Debug.Log("power up collected");
+
+            //call power up method
+        }
+    }
+
 }

@@ -8,6 +8,10 @@ TagManager:
   - ball catcher
   - Normal bounce
   - Ball goes through
+  - reflected projectile
+  - power up
+  - enemy projectile
+  - ally boss
   layers:
   - Default
   - TransparentFX

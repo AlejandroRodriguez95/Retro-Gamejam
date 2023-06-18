@@ -16,16 +16,4 @@ public class GameManager : MonoBehaviour
     [Title("Internal")]
     [SerializeField]
     GameObject ballPrefab;
-
-
-    private void Awake()
-    {
-        InitializePlayerControllerValues();
-    }
-
-    private void InitializePlayerControllerValues()
-    {
-        playerController.Bounds = bounds;
-    }
-
 }

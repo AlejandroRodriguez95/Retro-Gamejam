@@ -19,5 +19,8 @@ public class BallDestroyer : MonoBehaviour
     {
         if(collision.CompareTag("ball"))
             OnBallIsDestroyedAUDIO.Invoke(audioSource);
+
+        if(collision.CompareTag("power up"))
+            Destroy(collision.gameObject);
     }
 }

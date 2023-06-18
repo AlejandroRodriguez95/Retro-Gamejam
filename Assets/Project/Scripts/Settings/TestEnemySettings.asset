@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a933178226a8d8545b87b67dfd115d07, type: 3}
   m_Name: TestEnemySettings
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 5
   attackCooldown: 4

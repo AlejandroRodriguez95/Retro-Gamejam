@@ -15,10 +15,12 @@ public class EnemyProjectile : MonoBehaviour
 
     //these values are modified either through the inspector or assigned by the game manager
 
-    public static Action<GameObject> OnProjectileTouchesBottom;
+    public Action<GameObject> OnProjectileTouchesBottom;
     public static Action<Collision2D, float, float, float> OnProjectileBouncesOnPlayer;
     public static Action<Collision2D, float> OnProjectileBouncesNormally;
-    public static Action<AudioSource> OnProjectileCollidesWithObjectAUDIO; // use this for sounds and physic handling
+    public static Action<AudioSource> OnProjectileCollidesWithObjectAUDIO; // use this for sounds 
+    public Action<GameObject> OnProjectileIsDisabled;
+
 
     #region Getters&Setters
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
@@ -36,8 +38,16 @@ public class EnemyProjectile : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (gameObject.CompareTag("reflected projectile"))
+        {
+            StopCoroutine(WaitAndDissapear(2));
+            StartCoroutine(WaitAndDissapear(0));
+        }
+
+
         if (collision.gameObject.CompareTag("Player"))
         {
+            StartCoroutine(WaitAndDissapear(2));
             OnProjectileBouncesOnPlayer?.Invoke(collision, ballInitialSpeed, minBounceAngle, maxBounceAngle);
             OnProjectileCollidesWithObjectAUDIO?.Invoke(audioSource);
         }
@@ -45,6 +55,11 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Normal bounce"))
         {
             OnProjectileBouncesNormally?.Invoke(collision, ballInitialSpeed);
+            OnProjectileCollidesWithObjectAUDIO?.Invoke(audioSource);
+        }        
+        if (collision.gameObject.CompareTag("ally boss"))
+        {
+            StartCoroutine(WaitAndDissapear(0));
             OnProjectileCollidesWithObjectAUDIO?.Invoke(audioSource);
         }
 
@@ -66,5 +81,18 @@ public class EnemyProjectile : MonoBehaviour
     private void ResetBall()
     {
         this.gameObject.SetActive(false);
+    }
+
+    private IEnumerator WaitAndDissapear(float seconds)
+    {
+        this.gameObject.tag = "reflected projectile";
+
+        yield return new WaitForSeconds(seconds);
+
+        if (gameObject.activeSelf)
+        {
+            OnProjectileIsDisabled?.Invoke(gameObject);
+            gameObject.SetActive(false);
+        }
     }
 }

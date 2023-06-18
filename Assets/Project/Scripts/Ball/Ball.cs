@@ -46,6 +46,11 @@ public class Ball : MonoBehaviour
             OnBallBouncesNormally?.Invoke(collision, ballInitialSpeed);
             OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
         }
+        if (collision.gameObject.CompareTag("ally boss"))
+        {
+            OnBallBouncesNormally?.Invoke(collision, ballInitialSpeed);
+            OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
+        }
 
         if (collision.gameObject.CompareTag("Ball goes through"))
             Debug.Log("Ball went through");

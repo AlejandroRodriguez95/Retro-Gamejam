@@ -25,16 +25,21 @@ public class Cannon : MonoBehaviour
     Queue<GameObject> projectileQueue;
 
 
+
     private void Start()
     {
         projectileQueue = new Queue<GameObject>(settings.MaxQueueCapacity);
 
-        direction = (endPoint.position - startPoint.position).normalized;
+
+        direction = (startPoint.position - endPoint.position).normalized;
 
         for(int i = 0; i < settings.MaxQueueCapacity; i++)
         {
-                var tempProjectile = Instantiate(settings.EnemyProjectilePrefab, transform);
-                projectileQueue.Enqueue(tempProjectile);
+            var tempProjectile = Instantiate(settings.EnemyProjectilePrefab, transform);
+            projectileQueue.Enqueue(tempProjectile);
+            var tempEP = tempProjectile.GetComponent<EnemyProjectile>();
+            tempEP.OnProjectileTouchesBottom += ReQueue;
+            tempEP.OnProjectileIsDisabled += ReQueue;
         }
     }
 
@@ -51,5 +56,14 @@ public class Cannon : MonoBehaviour
         Gizmos.color = Color.green;
         if(startPoint != null && endPoint != null)
             Gizmos.DrawLine(startPoint.position, endPoint.position);
+    }
+
+
+
+    private void ReQueue(GameObject projectile)
+    {
+        projectile.transform.localPosition = Vector3.zero;
+        projectileQueue.Enqueue(projectile);
+
     }
 }
