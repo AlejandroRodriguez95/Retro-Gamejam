@@ -5,19 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
-    [Title("Ball launcher settings")]
-    [SerializeField]
-    private BallLauncher ballLauncherReference;
-    [SerializeField]
-    private float ballsInitialSpeed;
-    [SerializeField]
-    private float minBallBounceAngle;
-    [SerializeField]
-    private float maxBallBounceAngle;
-    [SerializeField]
-    private int maxAmountOfBalls; // maximum amount of balls on the screen at any given time 
-
     [Space]
     [Title("Player controller settings")]
     [SerializeField]
@@ -33,18 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        InitializeBallBounceValues();
         InitializePlayerControllerValues();
-    }
-
-
-    private void InitializeBallBounceValues()
-    {
-        ballLauncherReference.BallInitialSpeed = ballsInitialSpeed;
-        ballLauncherReference.MaxAmountOfBalls = maxAmountOfBalls;
-        ballLauncherReference.BallPrefab = ballPrefab;
-        ballLauncherReference.BallsMaxBounceAngle = maxBallBounceAngle;
-        ballLauncherReference.BallsMinBounceAngle = minBallBounceAngle;
     }
 
     private void InitializePlayerControllerValues()
