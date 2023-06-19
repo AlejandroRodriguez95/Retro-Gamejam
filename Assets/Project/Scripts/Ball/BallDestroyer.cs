@@ -10,10 +10,6 @@ public class BallDestroyer : MonoBehaviour
 
     public static Action<AudioSource> OnBallIsDestroyedAUDIO;
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
