@@ -37,6 +37,7 @@ public class AudioManager : MonoBehaviour
         {
             case "level":
                 this.source.clip = this.levelMusic;
+                this.source.volume = .55f; // I think the ambient track works better turned down a bit -Mara
                 break;
         }
         this.source.loop = true;
