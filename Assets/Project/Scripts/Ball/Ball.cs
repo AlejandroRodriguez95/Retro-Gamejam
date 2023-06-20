@@ -71,4 +71,18 @@ public class Ball : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+
+    public void FasterBall(float powerLength, float speedScale)
+    {
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        StartCoroutine(SpeedRescale(rb, powerLength, speedScale));;
+        
+    }
+
+    private IEnumerator SpeedRescale(Rigidbody2D rb, float powerLength, float speedScale)
+    {
+        ballInitialSpeed *= speedScale;
+        yield return new WaitForSeconds(powerLength);
+        ballInitialSpeed /= speedScale;
+    }
 }
