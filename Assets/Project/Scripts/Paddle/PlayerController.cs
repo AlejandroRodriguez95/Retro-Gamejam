@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     SO_PlayerSettings playerSettings;
+
+    public static Action<Collision2D> OnSpawnBallPickup;
+    public static Action<Collision2D> OnFasterBallPickup;
 
     float speed;
     float bounds;
@@ -18,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         speed = playerSettings.MoveSpeed;
         bounds = playerSettings.Bounds;
+        
     }
 
     private void Update()
@@ -61,13 +66,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("power up"))
+        if (collision.gameObject.CompareTag("spawn ball"))
         {
-            Destroy(collision.gameObject);
-            Debug.Log("power up collected");
-
-            //call power up method
+            OnSpawnBallPickup?.Invoke(collision);
         }
+
+        if (collision.gameObject.CompareTag("faster ball"))
+            OnFasterBallPickup?.Invoke(collision);
     }
 
 }

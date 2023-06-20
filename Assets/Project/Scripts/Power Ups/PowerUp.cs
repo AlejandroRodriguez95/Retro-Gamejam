@@ -5,14 +5,18 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     Rigidbody2D rb;
-    private void Awake()
+    protected void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         rb.velocity = Vector3.down * 2;
     }
 
+    public void Activate(Collision2D collision) {
+        collision.gameObject.SetActive(false);
+        Debug.Log("power up collected");
+    }
 }

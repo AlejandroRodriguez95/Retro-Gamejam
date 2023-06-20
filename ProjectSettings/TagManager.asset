@@ -12,6 +12,8 @@ TagManager:
   - power up
   - enemy projectile
   - ally boss
+  - spawn ball
+  - faster ball
   layers:
   - Default
   - TransparentFX
