@@ -14,6 +14,7 @@ TagManager:
   - ally boss
   - spawn ball
   - faster ball
+  - bigger ball
   layers:
   - Default
   - TransparentFX

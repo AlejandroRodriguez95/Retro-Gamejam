@@ -74,15 +74,29 @@ public class Ball : MonoBehaviour
 
     public void FasterBall(float powerLength, float speedScale)
     {
-        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-        StartCoroutine(SpeedRescale(rb, powerLength, speedScale));;
-        
+        StartCoroutine(SpeedRescale(powerLength, speedScale)); ;
     }
 
-    private IEnumerator SpeedRescale(Rigidbody2D rb, float powerLength, float speedScale)
+    private IEnumerator SpeedRescale(float powerLength, float speedScale)
     {
         ballInitialSpeed *= speedScale;
         yield return new WaitForSeconds(powerLength);
         ballInitialSpeed /= speedScale;
     }
+    public void BiggerBall(float powerLength, float sizeScale)
+    {
+        StartCoroutine(SizeRescale(powerLength, sizeScale)); ;
+    }
+
+    private IEnumerator SizeRescale(float powerLength, float sizeScale)
+    {
+        float xScale = gameObject.transform.localScale.x;
+        float yScale = gameObject.transform.localScale.y;
+        float zScale = gameObject.transform.localScale.z;
+        gameObject.transform.localScale = new Vector3(sizeScale * xScale, sizeScale * yScale, zScale);
+        yield return new WaitForSeconds(powerLength);
+        gameObject.transform.localScale = new Vector3(xScale, yScale, zScale);
+    }
+
+
 }
