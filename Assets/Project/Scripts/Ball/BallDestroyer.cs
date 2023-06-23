@@ -8,6 +8,7 @@ public class BallDestroyer : MonoBehaviour
     [SerializeField]
     AudioSource audioSource;
 
+    public static Action<GameObject> OnBallIsDestroyed;
     public static Action<AudioSource> OnBallIsDestroyedAUDIO;
 
     private void Awake()
@@ -17,8 +18,11 @@ public class BallDestroyer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("ball"))
+        if (collision.CompareTag("ball"))
+        {
+            OnBallIsDestroyed.Invoke(collision.gameObject);
             OnBallIsDestroyedAUDIO.Invoke(audioSource);
+        }
 
         if(collision.CompareTag("power up"))
             Destroy(collision.gameObject);

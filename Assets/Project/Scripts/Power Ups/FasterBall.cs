@@ -16,7 +16,8 @@ public class FasterBall : PowerUp
     }
     private new void Activate(Collision2D collision)
     {
-        currentBall.GetComponent<Ball>().FasterBall(powerLength,speedScale);
+        foreach (GameObject ball in currentBalls)
+            ball.GetComponent<Ball>().FasterBall(powerLength, speedScale);
         base.Activate(collision);
 
     }

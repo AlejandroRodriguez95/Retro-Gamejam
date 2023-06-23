@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    protected static GameObject currentBall;
+    protected static List<GameObject> currentBalls = new List<GameObject>();
 
     Rigidbody2D rb;
     protected void Awake()
     {
-        LauncherBehavior.OnBallLaunch += SetCurrentBall;
+        LauncherBehavior.OnBallLaunch += AddCurrentBall;
+        BallDestroyer.OnBallIsDestroyed += RemoveCurrentBall;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -25,8 +26,12 @@ public class PowerUp : MonoBehaviour
 
 
 
-    void SetCurrentBall(GameObject newBall)
+    void AddCurrentBall(GameObject newBall)
     {
-        currentBall = newBall;
+        currentBalls.Add(newBall);
+    }
+
+    void RemoveCurrentBall(GameObject currentBall){
+        currentBalls.Remove(currentBall);
     }
 }

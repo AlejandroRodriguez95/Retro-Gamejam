@@ -16,7 +16,8 @@ public class BiggerBall: PowerUp
     }
     private new void Activate(Collision2D collision)
     {
-        currentBall.GetComponent<Ball>().BiggerBall(powerLength,sizeScale);
+        foreach(GameObject ball in currentBalls)
+            ball.GetComponent<Ball>().BiggerBall(powerLength, sizeScale);
         base.Activate(collision);
 
     }
