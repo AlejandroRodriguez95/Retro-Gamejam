@@ -8,6 +8,8 @@ public class BallLauncher : MonoBehaviour
 {
     [SerializeField]
     SO_LauncherSettings settings;
+    [SerializeField]
+    SO_AllyBossSettings allySettings;
 
     public static Action<Queue<GameObject>, Vector2, float> OnLaunchBall;
 
@@ -27,6 +29,7 @@ public class BallLauncher : MonoBehaviour
             bh.BallInitialSpeed = settings.BallInitialSpeed;
             bh.MaxBounceAngle = settings.BallsMaxBounceAngle;
             bh.MinBounceAngle = settings.BallsMinBounceAngle;
+            bh.DamageDealt = allySettings.DamageFromBall;
             ballQueue.Enqueue(tempBall);
         }
 

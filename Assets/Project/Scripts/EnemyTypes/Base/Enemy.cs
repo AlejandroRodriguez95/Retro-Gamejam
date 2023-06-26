@@ -6,7 +6,9 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     protected E_EnemyType type;
+    [SerializeField]
     protected int maxHealth;
+    [SerializeField]
     protected int currentHealth;
     protected float attackCooldown;
     public static Action specialEffectsWhenHit;
@@ -22,6 +24,8 @@ public abstract class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public virtual void TakeDamage(GameObject Ball) { }
     public virtual void ApplySpecialEffects()
     {
         specialEffectsWhenHit?.Invoke();

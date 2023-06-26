@@ -8,6 +8,8 @@ public class SpawnBall : PowerUp
 
     [SerializeField]
     SO_LauncherSettings settings;
+    [SerializeField]
+    SO_AllyBossSettings allySettings;
     public static Action<Vector2> OnSpawnBallActivated;
     private new void Awake()
     {
@@ -25,6 +27,7 @@ public class SpawnBall : PowerUp
         bh.BallInitialSpeed = settings.BallInitialSpeed;
         bh.MaxBounceAngle = settings.BallsMaxBounceAngle;
         bh.MinBounceAngle = settings.BallsMinBounceAngle;
+        bh.DamageDealt = allySettings.DamageFromBall;
 
         var rb = ball.GetComponent<Rigidbody2D>();
 

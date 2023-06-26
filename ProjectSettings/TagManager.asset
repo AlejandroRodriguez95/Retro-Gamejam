@@ -15,6 +15,7 @@ TagManager:
   - spawn ball
   - faster ball
   - bigger ball
+  - extra damage
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     float ballInitialSpeed;
     float maxBounceAngle;
     float minBounceAngle;
+    int damageDealt;
 
     //these values are modified either through the inspector or assigned by the game manager
 
@@ -23,6 +24,7 @@ public class Ball : MonoBehaviour
     public float BallInitialSpeed { get { return ballInitialSpeed; } set { ballInitialSpeed = value; } }
     public float MaxBounceAngle { set { maxBounceAngle = value; } }
     public float MinBounceAngle { set { minBounceAngle = value; } }
+    public int DamageDealt { get { return damageDealt; } set { damageDealt = value; } }
     #endregion
 
 
@@ -46,6 +48,7 @@ public class Ball : MonoBehaviour
             OnBallBouncesNormally?.Invoke(collision, ballInitialSpeed);
             OnBallCollidesWithObjectAUDIO?.Invoke(audioSource);
         }
+
         if (collision.gameObject.CompareTag("ally boss"))
         {
             OnBallBouncesNormally?.Invoke(collision, ballInitialSpeed);
@@ -71,18 +74,20 @@ public class Ball : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-
+    #region Faster Ball
     public void FasterBall(float powerLength, float speedScale)
     {
         StartCoroutine(SpeedRescale(powerLength, speedScale)); ;
     }
-
     private IEnumerator SpeedRescale(float powerLength, float speedScale)
     {
         ballInitialSpeed *= speedScale;
         yield return new WaitForSeconds(powerLength);
         ballInitialSpeed /= speedScale;
     }
+    #endregion
+
+    #region Bigger Ball
     public void BiggerBall(float powerLength, float sizeScale)
     {
         StartCoroutine(SizeRescale(powerLength, sizeScale)); ;
@@ -97,6 +102,20 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(powerLength);
         gameObject.transform.localScale = new Vector3(xScale, yScale, zScale);
     }
+    #endregion
 
+    #region Extra Damage
+    public void ExtraDamage(float powerLength, int damageScale)
+    {
+        StartCoroutine(DamageRescale(powerLength, damageScale)); ;
+    }
+
+    private IEnumerator DamageRescale(float powerLength, int damageScale)
+    {
+        DamageDealt *= damageScale;
+        yield return new WaitForSeconds(powerLength);
+        DamageDealt /= damageScale;
+    }
+    #endregion
 
 }

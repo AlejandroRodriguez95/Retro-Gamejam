@@ -17,6 +17,24 @@ public class TestEnemy : Enemy
         StartCoroutine(AttackingPattern());
     }
 
+    public override void TakeDamage()
+    {
+        currentHealth--;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    public override void TakeDamage(GameObject ball)
+    {
+        int damageDealt = ball.GetComponent<Ball>().DamageDealt;
+        currentHealth -= damageDealt;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public override void Shoot()
     {
         if(cannons.Length > 0)
@@ -35,9 +53,12 @@ public class TestEnemy : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("reflected projectile") || collision.gameObject.CompareTag("ball"))
+        if(collision.gameObject.CompareTag("reflected projectile"))
         {
             TakeDamage();
+        } else if (collision.gameObject.CompareTag("ball"))
+        {
+            TakeDamage(collision.gameObject);
         }
     }
 

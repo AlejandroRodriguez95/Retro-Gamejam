@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public static Action<Collision2D> OnSpawnBallPickup;
     public static Action<Collision2D> OnFasterBallPickup;
     public static Action<Collision2D> OnBiggerBallPickup;
+    public static Action<Collision2D> OnExtraDamagePickup;
 
     float speed;
     float bounds;
@@ -75,6 +76,9 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("bigger ball"))
             OnBiggerBallPickup?.Invoke(collision);
+
+        if (collision.gameObject.CompareTag("extra damage"))
+            OnExtraDamagePickup?.Invoke(collision);
     }
 
 }

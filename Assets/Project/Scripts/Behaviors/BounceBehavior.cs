@@ -16,7 +16,12 @@ public class BounceBehavior : MonoBehaviour
     {
         Vector2 reflection = Vector2.Reflect(collision.otherRigidbody.velocity, collision.contacts[0].normal);
         collision.otherRigidbody.velocity = reflection.normalized * ballInitialSpeed;
-    }
+ /*       float xPos = collision.otherRigidbody.position.x;
+        float yPos = collision.otherRigidbody.position.y;
+        float ballRadius = collision.otherCollider.bounds.extents.x;
+
+        xPos = Mathf.Clamp(collision.otherRigidbody.position);
+ */   }
 
     private void BounceOnPlayer(Collision2D collision, float ballInitialSpeed, float minBounceAngle, float maxBounceAngle)
     {
