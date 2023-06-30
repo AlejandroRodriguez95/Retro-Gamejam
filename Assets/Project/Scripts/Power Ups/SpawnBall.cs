@@ -10,7 +10,7 @@ public class SpawnBall : PowerUp
     SO_LauncherSettings settings;
     [SerializeField]
     SO_AllyBossSettings allySettings;
-    public static Action<Vector2> OnSpawnBallActivated;
+    public static Action OnSpawnBallActivated;
     private new void Awake()
     {
         base.Awake();
@@ -19,21 +19,6 @@ public class SpawnBall : PowerUp
     // Start is called before the first frame update
     public new void Activate(Collision2D collision)
     {
-        GameObject ball = Instantiate(settings.BallPrefab);
-
-        ball.transform.position = collision.transform.position;
-
-        var bh = ball.GetComponent<Ball>();
-        bh.BallInitialSpeed = settings.BallInitialSpeed;
-        bh.MaxBounceAngle = settings.BallsMaxBounceAngle;
-        bh.MinBounceAngle = settings.BallsMinBounceAngle;
-        bh.DamageDealt = allySettings.DamageFromBall;
-
-        var rb = ball.GetComponent<Rigidbody2D>();
-
-        ball.SetActive(true);
-
-        rb.velocity = Vector2.up * bh.BallInitialSpeed;
-        base.Activate(collision);
+        OnSpawnBallActivated?.Invoke();
     }
 }

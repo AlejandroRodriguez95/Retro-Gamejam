@@ -1684,6 +1684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExtraDamage
       objectReference: {fileID: 0}
+    - target: {fileID: 432545864877593216, guid: 507b553937ebb884480ae704df72e617, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 432545864877593223, guid: 507b553937ebb884480ae704df72e617, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -1804,7 +1808,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2077269559702136464, guid: 2a36d08e27512d444bb1e82a2f970d0c, type: 3}
       propertyPath: speedScale
-      value: 2
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2077269559702136465, guid: 2a36d08e27512d444bb1e82a2f970d0c, type: 3}
       propertyPath: m_RootOrder
@@ -1856,7 +1860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2077269559702136557, guid: 2a36d08e27512d444bb1e82a2f970d0c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a36d08e27512d444bb1e82a2f970d0c, type: 3}

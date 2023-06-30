@@ -18,6 +18,7 @@ public class BallLauncher : MonoBehaviour
     void Start()
     {
         Ball.OnBallTouchesBottom += ReQueueBall;
+        SpawnBall.OnSpawnBallActivated += LaunchBall;
         
         ballQueue = new Queue<GameObject>(settings.MaxAmountOfBalls);
 
@@ -48,6 +49,10 @@ public class BallLauncher : MonoBehaviour
     IEnumerator LaunchBallAfterTime()
     {
         yield return new WaitForSeconds(3);
+        OnLaunchBall?.Invoke(ballQueue, Vector2.up, settings.BallInitialSpeed);
+    }
+
+    void LaunchBall() {
         OnLaunchBall?.Invoke(ballQueue, Vector2.up, settings.BallInitialSpeed);
     }
 }
