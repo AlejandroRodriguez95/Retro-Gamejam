@@ -8,9 +8,10 @@ public class ExtraDamage : PowerUp
     float powerLength;
     [SerializeField]
     int damageScale;
-    private new void Awake()
+
+    private new void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         PlayerController.OnExtraDamagePickup += Activate;
     }
     private new void Activate(Collision2D collision)

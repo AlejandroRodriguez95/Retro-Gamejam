@@ -268,10 +268,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b600c641b950bbe448bd704d43d29e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  currentHealth: 0
+  spawnChance: 10
   initialValues: {fileID: 11400000, guid: 1547057d57acc56409a666e987a84154, type: 2}
   cannons:
   - {fileID: 6684918919417876621}
   - {fileID: 6684918918558442180}
+  powerUps:
+  - {fileID: 432545864877593216, guid: 5798ff14a30124a4198b7dafdfd87815, type: 3}
+  - {fileID: 2077269559702136557, guid: 2a36d08e27512d444bb1e82a2f970d0c, type: 3}
+  - {fileID: 7990704058075871103, guid: e39365e6b8ea86c4aa3abc3f81691fe4, type: 3}
+  - {fileID: 432545864877593216, guid: 507b553937ebb884480ae704df72e617, type: 3}
 --- !u!1 &6684918919417876723
 GameObject:
   m_ObjectHideFlags: 0

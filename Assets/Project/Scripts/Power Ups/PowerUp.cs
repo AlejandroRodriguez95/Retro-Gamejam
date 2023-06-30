@@ -7,15 +7,12 @@ public class PowerUp : MonoBehaviour
     protected static List<GameObject> currentBalls = new List<GameObject>();
 
     Rigidbody2D rb;
-    protected void Awake()
+
+    protected void OnEnable()
     {
         LauncherBehavior.OnBallLaunch += AddCurrentBall;
         BallDestroyer.OnBallIsDestroyed += RemoveCurrentBall;
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    protected void OnEnable()
-    {
         rb.velocity = Vector3.down * 2;
     }
 

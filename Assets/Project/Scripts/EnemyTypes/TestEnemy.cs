@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,15 @@ using UnityEngine;
 public class TestEnemy : Enemy
 {
     [SerializeField]
+    float spawnChance;
+
+    [SerializeField]
     SO_EnemySettings initialValues;
     [SerializeField]
     Cannon[] cannons;
+
+    [SerializeField]
+    GameObject[] powerUps;
 
     private void Awake()
     {
@@ -23,6 +30,7 @@ public class TestEnemy : Enemy
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            SpawnPowerUp();
         }
     }
     public override void TakeDamage(GameObject ball)
@@ -32,6 +40,16 @@ public class TestEnemy : Enemy
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            SpawnPowerUp();
+        }
+    }
+
+    protected void SpawnPowerUp()
+    {
+        if (UnityEngine.Random.Range(0, 100) < spawnChance)
+        {
+            int powerUpIndex = 0;
+            Instantiate<GameObject>(powerUps[powerUpIndex], gameObject.transform.position, gameObject.transform.rotation).SetActive(true);
         }
     }
 

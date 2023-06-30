@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     float speed;
     float bounds;
 
+    public float Bounds { get { return bounds; } set { bounds = value; } }
+
     private bool isMovingLeft;
     private bool isMovingRight;
 

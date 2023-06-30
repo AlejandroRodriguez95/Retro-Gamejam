@@ -9,9 +9,9 @@ public class BiggerBall: PowerUp
     [SerializeField]
     float sizeScale;
 
-    private new void Awake()
+    private new void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         PlayerController.OnBiggerBallPickup += Activate;
     }
     private new void Activate(Collision2D collision)

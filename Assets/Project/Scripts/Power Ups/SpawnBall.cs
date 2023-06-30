@@ -11,9 +11,9 @@ public class SpawnBall : PowerUp
     [SerializeField]
     SO_AllyBossSettings allySettings;
     public static Action OnSpawnBallActivated;
-    private new void Awake()
+    private new void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         PlayerController.OnSpawnBallPickup += Activate;
     }
     // Start is called before the first frame update

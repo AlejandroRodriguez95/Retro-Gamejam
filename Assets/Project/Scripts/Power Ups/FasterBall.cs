@@ -9,9 +9,9 @@ public class FasterBall : PowerUp
     [SerializeField]
     float speedScale;
 
-    private new void Awake()
+    private new void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         PlayerController.OnFasterBallPickup += Activate;
     }
     private new void Activate(Collision2D collision)

@@ -11,8 +11,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     protected int currentHealth;
     protected float attackCooldown;
-    [SerializeField]
-    private static GameObject[] powerUps;
     public static Action specialEffectsWhenHit;
 
 
